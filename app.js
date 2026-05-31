@@ -2,7 +2,7 @@
 // CONFIGURATION
 // ==========================================
 // Replace the string below with your deployed Google Apps Script Web App URL.
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxki187V52igfoURvN8_4LtDM-uU1WeLhOuGNPIovyLmHN6a6MXPj_zqa2QznMTMmUESA/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbFgGopoxJRnbtJbhcf_grcLdF1oZcZ1jQFdyS4NbHJF0WJ43IWuaXYIE4ar_b-HqxZIQ/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
