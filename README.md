@@ -6,16 +6,16 @@ A modern, responsive, and glassmorphic registration portal built with **Bootstra
 
 ## 📁 Repository Structure
 
-*   **[`index.html`](file:///c:/Users/JB/Documents/Interlink_Automation/interlink-registration/index.html)**: The frontend page containing the HTML layout, responsive Bootstrap grid structure, and custom styling rules (including keyframe animations and theme colors).
-*   **[`app.js`](file:///c:/Users/JB/Documents/Interlink_Automation/interlink-registration/app.js)**: The modular JavaScript logic containing the validation logic, conditional visibility toggle handlers, and the fetch submission configuration.
-*   **[`google-apps-script.js`](file:///c:/Users/JB/Documents/Interlink_Automation/interlink-registration/google-apps-script.js)**: The backend code to be copied and deployed as a Google Apps Script Web App.
+*   **[index.html](file:///wsl.localhost/Ubuntu/opt/interlink/index.html)**: The frontend page containing the HTML layout, responsive Bootstrap grid structure, custom styling rules (including keyframe animations and theme colors), and inline script config.
+*   **[app.js](file:///wsl.localhost/Ubuntu/opt/interlink/app.js)**: The modular JavaScript logic containing the validation logic, conditional visibility toggle handlers, and the fetch submission configuration.
+*   **[google-apps-script.js](file:///wsl.localhost/Ubuntu/opt/interlink/google-apps-script.js)**: The backend code to be copied and deployed as a Google Apps Script Web App.
 
 ---
 
 ## ✨ Features
 
 1.  **Premium Glassmorphic Design**: Clean UI featuring a dark theme, shifting ambient color blobs, glowing input focus states, and gradient title branding.
-2.  **Modular Frontend Separation**: Keeps HTML and JS separated for neat code maintenance.
+2.  **Modular Frontend Separation**: Keeps HTML and JS separated for neat code maintenance (with inline script fallback).
 3.  **Vanilla JS Conditional Logic**: Toggles school program selectors and custom specify-text inputs dynamically with smooth height transitions:
     *   *CSPC selected*: Shows CSPC-specific program dropdown. Hides UNAIR. Removes `specifyProgram` options.
     *   *UNAIR selected*: Shows UNAIR-specific program dropdown. Hides CSPC.
@@ -25,6 +25,10 @@ A modern, responsive, and glassmorphic registration portal built with **Bootstra
 5.  **Interactive Submission States**: Integrates a full-screen blur overlay containing a modern spinning wheel, a green SVG success checkmark, or a red failure cross depending on the network response.
 6.  **Auto-Initializing Backend Sheet**: The Google Apps Script automatically checks if the spreadsheet tab `"Interlink2026"` exists, creating it dynamically with formatted headers and auto-freeze rules if absent.
 7.  **Email Duplicate Interception**: Google Apps Script cross-references emails against existing row inputs to prevent users from registering multiple times.
+8.  **Personalized Confirmation Emails**: Automatically constructs and sends professional HTML emails tailored specifically to either CSPC or UNAIR registrants, aligned with the event's slate color design.
+9.  **Google Drive Virtual Background Attachment**: Attaches a custom MS Teams virtual background downloaded directly from Google Drive during registration.
+10. **High-Concurrency Protection (Thread Locking)**: Uses Apps Script `LockService` to serialize database access, preventing data overlaps or write failures when multiple users submit registrations at the exact same moment.
+11. **Performance-Optimized Execution**: The script releases the thread lock *immediately* after saving the registrant's data to the spreadsheet. Slow operations, like compiling and sending emails, are performed outside the locked block to optimize system speed.
 
 ---
 
@@ -37,8 +41,13 @@ A modern, responsive, and glassmorphic registration portal built with **Bootstra
 ### Step 2: Paste the Apps Script Backend
 1.  In your Google Sheet menu bar, click on **Extensions** > **Apps Script**.
 2.  Delete any default template code in the editor (usually `function myFunction() {}`).
-3.  Open **[`google-apps-script.js`](file:///c:/Users/JB/Documents/Interlink_Automation/interlink-registration/google-apps-script.js)**, copy the entire file contents, and paste it into the Apps Script editor.
-4.  Click the **Save (Disk icon)** button.
+3.  Open **[google-apps-script.js](file:///wsl.localhost/Ubuntu/opt/interlink/google-apps-script.js)**, copy the entire file contents, and paste it into the Apps Script editor.
+4.  Configure the constants at the top of the script:
+    *   `VIRTUAL_BACKGROUND_DRIVE_ID`: Set the file ID of your virtual background image from Google Drive.
+    *   `MsTeams_LINK`: Microsoft Teams link for the webinar.
+    *   `EVENT_DATE`: E.g., `June 03, 2026`.
+    *   `SENDER_NAME`: The display name for automated emails.
+5.  Click the **Save (Disk icon)** button.
 
 ### Step 3: Deploy the Script as a Web App
 1.  In the top-right corner of the Apps Script workspace, click the **Deploy** button and select **New deployment**.
@@ -52,13 +61,19 @@ A modern, responsive, and glassmorphic registration portal built with **Bootstra
 6.  Once deployed, copy the generated **Web app URL** (ends in `/exec`).
 
 ### Step 4: Link Frontend to the Web App
-1. Open **[`index.html`](file:///c:/Users/JB/Documents/Interlink_Automation/interlink-registration/index.html)**.
-2. Locate the JavaScript section at the bottom of the file around line 617:
+1. Open **[app.js](file:///wsl.localhost/Ubuntu/opt/interlink/app.js)**.
+2. Locate the JavaScript configuration section at the top of the file:
+   ```javascript
+   const WEB_APP_URL = "YOUR_SCRIPT_URL_HERE";
+   ```
+3. Replace `"YOUR_SCRIPT_URL_HERE"` with the copied Google Apps Script Web App URL.
+4. Open **[index.html](file:///wsl.localhost/Ubuntu/opt/interlink/index.html)**.
+5. If using the inline script version, locate the JavaScript configuration section around line 620:
    ```javascript
    const ENDPOINT_URL = "YOUR_SCRIPT_URL_HERE";
    ```
-3. Replace `"YOUR_SCRIPT_URL_HERE"` with the copied Google Apps Script Web App URL.
-4. Save the file.
+6. Replace it with the same Web App URL.
+7. Save the files and deploy to **Netlify**.
 
 ---
 
