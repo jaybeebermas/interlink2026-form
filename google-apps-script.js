@@ -16,9 +16,9 @@
 const VIRTUAL_BACKGROUND_DRIVE_ID = "1DovIID3oNuH7ilmnUftE6Z7x5NOhsjTq";
 
 // Event details
-const MsTeams_LINK = "https://teams.microsoft.com/meet/46608546826612?p=EPV5lBCzJW2PRMopdb";
-const MEETING_ID = "466 085 468 266 12";
-const MEETING_PASSCODE = "f3h5ra7Y";
+const MsTeams_LINK = "https://teams.microsoft.com/meet/4189155944193?p=2b7O8JnKNZP5AWpH9U";
+const MEETING_ID = "418 915 594 419 3";
+const MEETING_PASSCODE = "Vu3FJ2Ga";
 const EVENT_DATE = "June 03, 2026";
 const CSPC_FB_URL = "https://www.facebook.com/cspc.ccs";
 const SENDER_NAME = "Interlink 2026";
