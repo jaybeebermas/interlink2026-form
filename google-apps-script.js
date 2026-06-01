@@ -8,7 +8,7 @@
 // CONFIGURATION — Edit these values before deploying
 // ============================================================
 
-// Google Drive File ID of the Gmeet virtual background image.
+// Google Drive File ID of the MS Teams virtual background image.
 // 1. Upload the image to Google Drive.
 // 2. Right-click → "Get link" → set access to "Anyone with the link".
 // 3. Copy the File ID from the URL (the long string between /d/ and /view).
@@ -16,10 +16,10 @@
 const VIRTUAL_BACKGROUND_DRIVE_ID = "";
 
 // Event details
-const GMEET_LINK = "https://gmeetlinkhere";
-const MEETING_ID = "819 2885 2687";
-const MEETING_PASSCODE = "CCS";
-const EVENT_DATE = "June 02, 2026";
+const MsTeams_LINK = "https://teams.microsoft.com/meet/46608546826612?p=EPV5lBCzJW2PRMopdb";
+const MEETING_ID = "466 085 468 266 12";
+const MEETING_PASSCODE = "f3h5ra7Y";
+const EVENT_DATE = "June 03, 2026";
 const CSPC_FB_URL = "https://www.facebook.com/cspc.ccs";
 const SENDER_NAME = "Interlink 2026";
 
@@ -251,11 +251,11 @@ function buildCSPCEmailHtml(firstName) {
                       </tr>
                       <tr>
                         <td style="padding:6px 12px 6px 0;font-size:13px;color:#64748B;font-weight:600;white-space:nowrap;">Platform</td>
-                        <td style="padding:6px 0;font-size:13px;color:#1E293B;">Google Meet (Gmeet)</td>
+                        <td style="padding:6px 0;font-size:13px;color:#1E293B;">Microsoft Teams </td>
                       </tr>
                       <tr>
                         <td style="padding:6px 12px 6px 0;font-size:13px;color:#64748B;font-weight:600;white-space:nowrap;">Time</td>
-                        <td style="padding:6px 0;font-size:13px;color:#0F172A;font-weight:700;">2:00 PM – 6:00 PM <span style="color:#64748B;font-weight:400;">(GMT+8, Philippines)</span></td>
+                        <td style="padding:6px 0;font-size:13px;color:#0F172A;font-weight:700;">9:30 AM – 4:00 PM <span style="color:#64748B;font-weight:400;">(GMT+8, Philippines)</span></td>
                       </tr>
                       <tr>
                         <td style="padding:6px 12px 6px 0;font-size:13px;color:#64748B;font-weight:600;white-space:nowrap;">Meeting ID</td>
@@ -276,12 +276,12 @@ function buildCSPCEmailHtml(firstName) {
           <!-- Join Button -->
           <tr>
             <td style="padding:8px 40px 24px;text-align:center;">
-              <a href="${GMEET_LINK}"
+              <a href="${MsTeams_LINK}"
                  style="display:inline-block;background-color:#0F172A;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 32px;border-radius:6px;letter-spacing:0.2px;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
-                Join Google Meeting
+                Join MS Teams Meeting
               </a>
               <p style="margin:10px 0 0;font-size:12px;color:#64748B;">
-                Or copy the link: <a href="${GMEET_LINK}" style="color:#0F172A;text-decoration:underline;">${GMEET_LINK}</a>
+                Or copy the link: <a href="${MsTeams_LINK}" style="color:#0F172A;text-decoration:underline;">${MsTeams_LINK}</a>
               </p>
             </td>
           </tr>
@@ -309,7 +309,7 @@ function buildCSPCEmailHtml(firstName) {
               <table width="100%" cellpadding="0" cellspacing="0" style="background:#F8FAFC;border-radius:6px;border-left:3px solid #64748B;border-top:1px solid #E2E8F0;border-right:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0;">
                 <tr>
                   <td style="padding:12px 16px;font-size:13px;color:#475569;line-height:1.5;">
-                    <strong>Note:</strong> Attached is the Gmeet virtual background for the event.
+                    <strong>Note:</strong> Attached is the MS Teams virtual background for the event.
                   </td>
                 </tr>
               </table>
@@ -426,11 +426,11 @@ function buildUNAIREmailHtml(firstName) {
                       </tr>
                       <tr>
                         <td style="padding:6px 12px 6px 0;font-size:13px;color:#64748B;font-weight:600;white-space:nowrap;">Platform</td>
-                        <td style="padding:6px 0;font-size:13px;color:#1E293B;">Google Meet (Gmeet)</td>
+                        <td style="padding:6px 0;font-size:13px;color:#1E293B;">Microsoft Teams</td>
                       </tr>
                       <tr>
                         <td style="padding:6px 12px 6px 0;font-size:13px;color:#64748B;font-weight:600;white-space:nowrap;">Time</td>
-                        <td style="padding:6px 0;font-size:13px;color:#0F172A;font-weight:700;">1:00 PM – 5:00 PM <span style="color:#64748B;font-weight:400;">(WIB / GMT+7, Indonesia)</span></td>
+                        <td style="padding:6px 0;font-size:13px;color:#0F172A;font-weight:700;">8:30 AM – 3:00 PM <span style="color:#64748B;font-weight:400;">(WIB / GMT+7, Indonesia)</span></td>
                       </tr>
                       <tr>
                         <td style="padding:6px 12px 6px 0;font-size:13px;color:#64748B;font-weight:600;white-space:nowrap;">Meeting ID</td>
@@ -451,12 +451,12 @@ function buildUNAIREmailHtml(firstName) {
           <!-- Join Button -->
           <tr>
             <td style="padding:8px 40px 24px;text-align:center;">
-              <a href="https://cspc.edu.ph/"
+              <a href="${MsTeams_LINK}"
                  style="display:inline-block;background-color:#0F172A;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 32px;border-radius:6px;letter-spacing:0.2px;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
-                Join Google Meeting
+                Join MS Teams Meeting
               </a>
               <p style="margin:10px 0 0;font-size:12px;color:#64748B;">
-                Or copy the link: <a href="https://cspc.edu.ph/" style="color:#0F172A;text-decoration:underline;">https://cspc.edu.ph/</a>
+                Or copy the link: <a href="${MsTeams_LINK}" style="color:#0F172A;text-decoration:underline;">${MsTeams_LINK}</a>
               </p>
             </td>
           </tr>
@@ -484,7 +484,7 @@ function buildUNAIREmailHtml(firstName) {
               <table width="100%" cellpadding="0" cellspacing="0" style="background:#F8FAFC;border-radius:6px;border-left:3px solid #64748B;border-top:1px solid #E2E8F0;border-right:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0;">
                 <tr>
                   <td style="padding:12px 16px;font-size:13px;color:#475569;line-height:1.5;">
-                    <strong>Note:</strong> Attached is the Gmeet virtual background for the event.
+                    <strong>Note:</strong> Attached is the MS Teams virtual background for the event.
                   </td>
                 </tr>
               </table>

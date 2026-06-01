@@ -26,7 +26,7 @@ A modern, responsive, and glassmorphic registration portal built with **Bootstra
 6.  **Auto-Initializing Backend Sheet**: The Google Apps Script automatically checks if the spreadsheet tab `"Interlink2026"` exists, creating it dynamically with formatted headers and auto-freeze rules if absent.
 7.  **Email Duplicate Interception**: Google Apps Script cross-references emails against existing row inputs to prevent users from registering multiple times.
 8.  **Personalized Confirmation Emails**: Automatically constructs and sends professional HTML emails tailored specifically to either CSPC or UNAIR registrants, aligned with the event's slate color design.
-9.  **Google Drive Virtual Background Attachment**: Attaches a custom Gmeet virtual background downloaded directly from Google Drive during registration.
+9.  **Google Drive Virtual Background Attachment**: Attaches a custom MS Teams virtual background downloaded directly from Google Drive during registration.
 10. **High-Concurrency Protection (Thread Locking)**: Uses Apps Script `LockService` to serialize database access, preventing data overlaps or write failures when multiple users submit registrations at the exact same moment.
 11. **Performance-Optimized Execution**: The script releases the thread lock *immediately* after saving the registrant's data to the spreadsheet. Slow operations, like compiling and sending emails, are performed outside the locked block to optimize system speed.
 
@@ -44,8 +44,8 @@ A modern, responsive, and glassmorphic registration portal built with **Bootstra
 3.  Open **[google-apps-script.js](file:///wsl.localhost/Ubuntu/opt/interlink/google-apps-script.js)**, copy the entire file contents, and paste it into the Apps Script editor.
 4.  Configure the constants at the top of the script:
     *   `VIRTUAL_BACKGROUND_DRIVE_ID`: Set the file ID of your virtual background image from Google Drive.
-    *   `GMEET_LINK`: Google Meet link for the webinar.
-    *   `EVENT_DATE`: E.g., `June 02, 2026`.
+    *   `MsTeams_LINK`: Microsoft Teams link for the webinar.
+    *   `EVENT_DATE`: E.g., `June 03, 2026`.
     *   `SENDER_NAME`: The display name for automated emails.
 5.  Click the **Save (Disk icon)** button.
 
