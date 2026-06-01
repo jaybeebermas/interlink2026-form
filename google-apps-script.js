@@ -13,7 +13,7 @@
 // 2. Right-click → "Get link" → set access to "Anyone with the link".
 // 3. Copy the File ID from the URL (the long string between /d/ and /view).
 // Leave as "" to skip the attachment.
-const VIRTUAL_BACKGROUND_DRIVE_ID = "";
+const VIRTUAL_BACKGROUND_DRIVE_ID = "1DovIID3oNuH7ilmnUftE6Z7x5NOhsjTq";
 
 // Event details
 const MsTeams_LINK = "https://teams.microsoft.com/meet/46608546826612?p=EPV5lBCzJW2PRMopdb";
@@ -143,34 +143,39 @@ function sendInvitationEmail(data) {
 
   if (!recipientEmail || !firstName || !school) return;
 
+  // Build options object
+  const mailOptions = {
+    name: SENDER_NAME,
+  };
+
+  // Attach virtual background if a Drive ID is configured
+  let bgBlob = null;
+  if (VIRTUAL_BACKGROUND_DRIVE_ID && VIRTUAL_BACKGROUND_DRIVE_ID.trim() !== "") {
+    try {
+      const bgFile = DriveApp.getFileById(VIRTUAL_BACKGROUND_DRIVE_ID.trim());
+      bgBlob = bgFile.getBlob();
+      mailOptions.inlineImages = {
+        virtual_bg: bgBlob
+      };
+    } catch (driveErr) {
+      console.warn("Could not retrieve virtual background from Drive: " + driveErr.toString());
+    }
+  }
+
   let subject, htmlBody;
 
   if (school === "CSPC") {
     subject = "Registration Confirmation – INTERLINK 2026";
-    htmlBody = buildCSPCEmailHtml(firstName);
+    htmlBody = buildCSPCEmailHtml(firstName, !!bgBlob);
   } else if (school === "UNAIR") {
     subject = "Registration Confirmation – INTERLINK 2026";
-    htmlBody = buildUNAIREmailHtml(firstName);
+    htmlBody = buildUNAIREmailHtml(firstName, !!bgBlob);
   } else {
     // Unknown school — skip
     return;
   }
 
-  // Build options object
-  const mailOptions = {
-    name: SENDER_NAME,
-    htmlBody: htmlBody,
-  };
-
-  // Attach virtual background if a Drive ID is configured
-  if (VIRTUAL_BACKGROUND_DRIVE_ID && VIRTUAL_BACKGROUND_DRIVE_ID.trim() !== "") {
-    try {
-      const bgFile = DriveApp.getFileById(VIRTUAL_BACKGROUND_DRIVE_ID.trim());
-      mailOptions.attachments = [bgFile.getBlob()];
-    } catch (driveErr) {
-      console.warn("Could not retrieve virtual background from Drive: " + driveErr.toString());
-    }
-  }
+  mailOptions.htmlBody = htmlBody;
 
   GmailApp.sendEmail(recipientEmail, subject, "", mailOptions);
 }
@@ -182,7 +187,7 @@ function sendInvitationEmail(data) {
  * @param {string} firstName - The registrant's first name.
  * @returns {string} HTML string.
  */
-function buildCSPCEmailHtml(firstName) {
+function buildCSPCEmailHtml(firstName, hasVirtualBg) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -308,8 +313,13 @@ function buildCSPCEmailHtml(firstName) {
             <td style="padding:0 40px 24px;">
               <table width="100%" cellpadding="0" cellspacing="0" style="background:#F8FAFC;border-radius:6px;border-left:3px solid #64748B;border-top:1px solid #E2E8F0;border-right:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0;">
                 <tr>
-                  <td style="padding:12px 16px;font-size:13px;color:#475569;line-height:1.5;">
+                  <td style="padding:16px;font-size:13px;color:#475569;line-height:1.5;">
                     <strong>Note:</strong> Attached is the MS Teams virtual background for the event.
+                    ${hasVirtualBg ? `
+                    <div style="margin-top:12px;text-align:center;">
+                      <img src="cid:virtual_bg" alt="MS Teams Virtual Background" style="width:100%;max-width:520px;height:auto;display:block;border-radius:4px;border:1px solid #E2E8F0;margin:0 auto;" />
+                    </div>
+                    ` : ""}
                   </td>
                 </tr>
               </table>
@@ -357,7 +367,7 @@ function buildCSPCEmailHtml(firstName) {
  * @param {string} firstName - The registrant's first name.
  * @returns {string} HTML string.
  */
-function buildUNAIREmailHtml(firstName) {
+function buildUNAIREmailHtml(firstName, hasVirtualBg) {
   return `<!DOCTYPE html>
 <html lang="id">
 <head>
@@ -483,8 +493,13 @@ function buildUNAIREmailHtml(firstName) {
             <td style="padding:0 40px 24px;">
               <table width="100%" cellpadding="0" cellspacing="0" style="background:#F8FAFC;border-radius:6px;border-left:3px solid #64748B;border-top:1px solid #E2E8F0;border-right:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0;">
                 <tr>
-                  <td style="padding:12px 16px;font-size:13px;color:#475569;line-height:1.5;">
+                  <td style="padding:16px;font-size:13px;color:#475569;line-height:1.5;">
                     <strong>Note:</strong> Attached is the MS Teams virtual background for the event.
+                    ${hasVirtualBg ? `
+                    <div style="margin-top:12px;text-align:center;">
+                      <img src="cid:virtual_bg" alt="MS Teams Virtual Background" style="width:100%;max-width:520px;height:auto;display:block;border-radius:4px;border:1px solid #E2E8F0;margin:0 auto;" />
+                    </div>
+                    ` : ""}
                   </td>
                 </tr>
               </table>
