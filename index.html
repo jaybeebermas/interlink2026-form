@@ -640,6 +640,28 @@
       const overlayError = document.getElementById('overlayError');
       const errorMessage = document.getElementById('errorMessage');
 
+      // ── Check Registration Deadline on Load ──
+      const deadline = 1780446600000; // June 3, 2026, 8:30 AM UTC+8
+      if (Date.now() >= deadline) {
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtnText.textContent = "Registration Closed";
+
+        // Display the closed overlay message
+        errorMessage.textContent = "This form is no longer accepting responses.";
+        const overlayTitle = overlayError.querySelector('.result-overlay__title');
+        if (overlayTitle) {
+          overlayTitle.textContent = "Registration Closed";
+        }
+        overlayError.classList.add('active');
+
+        // Hide the "Try Again" button since registration is closed permanently
+        const tryAgainBtn = overlayError.querySelector('button');
+        if (tryAgainBtn) {
+          tryAgainBtn.style.display = 'none';
+        }
+      }
+
       // ── Utility: Toggle Conditional Field ──
       function toggleField(wrapper, input, show) {
         if (show) {
