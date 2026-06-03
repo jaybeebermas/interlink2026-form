@@ -30,6 +30,12 @@ const SENDER_NAME = "Interlink 2026";
  * Entry point: Handles POST requests from the registration form.
  */
 function doPost(e) {
+  // Check if form is still accepting responses (Deadline: June 3, 2026, 8:30 AM UTC+8)
+  const deadline = 1780446600000; // Unix timestamp for 2026-06-03T08:30:00+08:00
+  if (new Date().getTime() >= deadline) {
+    return createJsonResponse(false, "This form is no longer accepting responses. Registration closed on June 3, 2026, at 8:30 AM.");
+  }
+
   const lock = LockService.getScriptLock();
   try {
     // Wait for up to 30 seconds for the lock to become available
